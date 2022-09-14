@@ -25,6 +25,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setMonthView()
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -33,16 +38,13 @@ class ViewController: UIViewController {
             return
         }
         
-
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         view.addSubview(collectionView)
         
-        collectionView.frame = CGRect(x: 0, y: 139.5, width: 414, height: 682.5)
-        
-        // Do any additional setup after loading the view.
+        collectionView.frame = CGRect(x: 0, y: 100.5, width: view.bounds.width, height: view.bounds.height/2)
     }
 
     func setMonthView() {
@@ -62,7 +64,7 @@ class ViewController: UIViewController {
             }
             count += 1
         }
-        screen?.currentMonth.text = CalendarHelper().monthString(date: selectedDate) + " " + CalendarHelper().yearString(date: selectedDate)
+        screen?.currentMonth.text = CalendarHelper().monthString(date: selectedDate) + " de " + CalendarHelper().yearString(date: selectedDate)
         collectionView?.reloadData()
     }
     
@@ -85,7 +87,12 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
-        myCell.dayOfMonth.text = totalSquares[indexPath.item]
+        let day = totalSquares[indexPath.item]
+        var hide = false
+        if (totalSquares[indexPath.item].count <= 0) {
+            hide = true
+        }
+        myCell.configure(day: day, hide: hide)
         return myCell
     }
 }
