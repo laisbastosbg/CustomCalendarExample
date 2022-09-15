@@ -21,7 +21,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
     lazy var moodOfTheDay: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray4
         view.layer.cornerRadius = 0.5 * 0.6 * contentView.bounds.size.width
         return view
     }()
@@ -58,7 +57,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
             moodOfTheDay.image = UIImage()
         } else {
             moodOfTheDay.backgroundColor = .systemGray5
-            moodOfTheDay.image = Mood.very_happy.emoji
+            moodOfTheDay.image = Mood.angry.emoji
             
         }
         

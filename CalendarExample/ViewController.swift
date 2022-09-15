@@ -38,13 +38,18 @@ class ViewController: UIViewController {
             return
         }
         
+        guard let screen = screen else {
+            return
+        }
+
+        
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        view.addSubview(collectionView)
-        
-        collectionView.frame = CGRect(x: 0, y: 100.5, width: view.bounds.width, height: view.bounds.height/2)
+        screen.calendarContainer.addSubview(collectionView)
+        collectionView.backgroundColor = .clear
+        collectionView.frame = CGRect(x: 0, y: 55, width: view.bounds.width, height: screen.bounds.height/2)
     }
 
     func setMonthView() {
